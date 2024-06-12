@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainyExperts: Sign Up</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom styles */
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); /* Add shadow to the entire page */
+        }
+        .container {
+            width: 400px; /* Set width for form container */
+            padding: 20px;
+            background-color: #f0f0f0; /* Light background color */
+            border-radius: 20px; /* Rounded corners */
+            box-shadow: 8px 8px 16px #d9d9d9, 
+                        -8px -8px 16px #ffffff; /* Soft neumorphic shadow */
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        form {
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="email"],
+        input[type="password"],
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px; /* Rounded corners */
+            background-color: #f0f0f0; /* Light background color */
+            box-shadow: inset 4px 4px 8px #d9d9d9, 
+                        inset -4px -4px 8px #ffffff; /* Neumorphic inset shadow */
+            outline: none;
+        }
+        input[type="email"],
+        input[type="password"] {
+            padding: 10px;
+        }
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border: 1px solid #0b4f6c; /* Change border color on focus */
+            box-shadow: none; /* Remove neumorphic shadow on focus */
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px; /* Rounded corners */
+            background-color: #f0f0f0; /* Light background color */
+            box-shadow: 4px 4px 4px #d9d9d9, 
+                        -4px -4px 4px #ffffff; /* Neumorphic shadow */
+            color: #007bff; /* Text color */
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            border-radius: 8px; /* Rounded corners */
+            background-color: #d9d9d9; /* Light background color */
+            box-shadow: inset 4px 4px 4px #d9d9d9, 
+                        inset -4px -4px 4px #ffffff; /* Neumorphic inset shadow */
+            outline: none;/
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .signup-link a {
+            color: #007bff;
+        }
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        /* Password strength indicator and other custom styles remain the same */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="color: #fafaff; text-align: center; animation: fadeInOut 3s linear infinite;">
+            BRAINY EXPERTS
+        </h2>
+        <h1>Sign Up</h1>
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="signupEmail">Email address</label>
+                <input type="email" class="form-control" id="signupEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
+                <span id="emailValidationLabel" class="error-message"></span> <!-- New span for email validation label -->
+            </div>
+            <div class="form-group">
+                <label for="signupPassword">Password</label>
+                <input type="password" class="form-control" id="signupPassword" placeholder="Password" required>
+                <div class="password-strength"></div>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required>
+                <span id="passwordMatchLabel" class="error-message"></span> <!-- New span for password match label -->
+                <div id="passwordError" class="invalid-feedback"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
+        <div class="signup-link">
+            Already have an account? <a href="BrainyExperts-login-form.html">Log in</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (Optional, only needed if you want to use Bootstrap JS features) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Function to update email validation label
+        function updateEmailValidationLabel() {
+            var email = document.getElementById('signupEmail').value;
+            var emailValidationLabel = document.getElementById('emailValidationLabel');
+
+            // Regular expression for validating email address
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (emailRegex.test(email)) {
+                emailValidationLabel.textContent = 'Valid email address';
+                emailValidationLabel.style.color = 'green';
+            } else {
+                emailValidationLabel.textContent = 'Invalid email address';
+                emailValidationLabel.style.color = 'red';
+            }
+        }
+
+        // Event listener for input in email field
+        document.getElementById('signupEmail').addEventListener('input', function () {
+            updateEmailValidationLabel();
+        });
+
+        // Event listener for form submission
+        document.getElementById('signupForm').addEventListener('submit', function (event) {
+            var email = document.getElementById('signupEmail').value;
+            var emailValidationLabel = document.getElementById('emailValidationLabel');
+
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailRegex.test(email)) {
+                emailValidationLabel.textContent = 'Invalid email address';
+                emailValidationLabel.style.color = 'red';
+                event.preventDefault(); // Prevent form submission
+            }
+        });
+
+        // Password strength checker
+        document.getElementById('signupPassword').addEventListener('input', function () {
+            var password = this.value;
+            var strength = document.querySelector('.password-strength');
+            var confirmPassword = document.getElementById('confirmPassword').value;
+            var error = document.getElementById('passwordError');
+
+            if (password.length < 8) {
+                strength.innerHTML = 'Password too weak';
+                strength.className = 'password-strength weak';
+                error.textContent = 'Password must be at least 8 characters long';
+            } else if (password.length < 12) {
+                strength.innerHTML = 'Medium';
+                strength.className = 'password-strength medium';
+                error.textContent = '';
+            } else {
+                strength.innerHTML = 'Strong';
+                strength.className = 'password-strength strong';
+                error.textContent = '';
+            }
+
+            // Check if passwords match
+            if (confirmPassword && password !== confirmPassword) {
+                error.textContent = 'Passwords do not match';
+            } else {
+                error.textContent = '';
+            }
+        });
+
+        // Form validation
+        document.getElementById('signupForm').addEventListener('submit', function (event) {
+            var password = document.getElementById('signupPassword').value;
+            var confirmPassword = document.getElementById('confirmPassword').value;
+            var error = document.getElementById('passwordError');
+
+            if (password !== confirmPassword) {
+                error.textContent = 'Passwords do not match';
+                event.preventDefault();
+            }
+        });
+
+        // Function to update password match label
+        function updatePasswordMatchLabel() {
+            var password = document.getElementById('signupPassword').value;
+            var confirmPassword = document.getElementById('confirmPassword').value;
+            var passwordMatchLabel = document.getElementById('passwordMatchLabel');
+
+            if (password === confirmPassword) {
+                passwordMatchLabel.textContent = 'Passwords match';
+                passwordMatchLabel.style.color = 'green';
+            } else {
+                passwordMatchLabel.textContent = 'Passwords do not match';
+                passwordMatchLabel.style.color = 'red';
+            }
+        }
+
+        // Event listener for input in confirm password field
+        document.getElementById('confirmPassword').addEventListener('input', function () {
+            updatePasswordMatchLabel();
+        });
+
+        // Event listener for form submission
+        document.getElementById('signupForm').addEventListener('submit', function (event) {
+            var password = document.getElementById('signupPassword').value;
+            var confirmPassword = document.getElementById('confirmPassword').value;
+            var passwordMatchLabel = document.getElementById('passwordMatchLabel');
+
+            if (password !== confirmPassword) {
+                passwordMatchLabel.textContent = 'Passwords do not match';
+                passwordMatchLabel.style.color = 'red';
+                event.preventDefault(); // Prevent form submission
+            }
+        });
+    </script>
+</body>
+</html>
